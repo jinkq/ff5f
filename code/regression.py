@@ -85,6 +85,18 @@ def plot_seperatly(Trdmnt_train, Trdmnt_test, Y_train, Y_pred_train, Y_test, Y_p
     ax.plot(Trdmnt_test, Y_pred, color='gray', label='Y_pred')
     plt.title(portfolio+ ': Y_test and Y_pred')
     plt.legend(loc=0,ncol=1)
+
+    # 设置横坐标间隔
+    Trdmnt = []
+    Trdmnt.extend(Trdmnt_train)
+    Trdmnt.extend(Trdmnt_test)
+    xticks=list(range(0,len(Trdmnt),2))
+    xlabels=[Trdmnt[x] for x in xticks] 
+    xticks.append(len(Trdmnt))
+    xlabels.append(Trdmnt[-1])
+    ax.set_xticks(xticks)
+    ax.set_xticklabels(xlabels, rotation=40)
+
     plt.savefig('../result/' + portfolio + '.png')
     plt.show()
 
@@ -124,6 +136,7 @@ def regression_one_portfolio(df, portfolio):
     # 用线性回归模型进行训练
     lr_model = LinearRegression()
     lr_model.fit(X_train, Y_train)
+
 
     # 预测测试集合的结果
     Y_pred_train = lr_model.predict(X_train)
