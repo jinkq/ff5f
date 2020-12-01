@@ -21,6 +21,7 @@
 * result：
   * correlation：自变量的相关系数图
   * regression：19个回归的拟合及预测曲线（1个全部样本回归+18个组合单独回归）
+  * test.xlsx：回归统计检验结果
 
 ## 使用指南
 
