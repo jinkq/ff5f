@@ -120,7 +120,6 @@ class Factors:
     #     # Mretwd_df['Stkcd'] = Mretwd_df['Stkcd'].map(lambda x: (6-len(x))*'0' + x)
     #     # self.df = pd.merge(self.df, Mretwd_df, on='Stkcd')
     #     # self.df.drop('Msmvosd', axis=1, inplace=True)
-    #     self.update_porfolio_Mretwd(year, month)
         
 
     def get_groups(self):
@@ -167,28 +166,6 @@ class Factors:
         self.df_BA = self.df.query('(Size_label=="B") & (INV_label=="A")')
     
     def get_factors(self):
-        # # 计算各组流通市值加权收益率
-        # self.R_SL = (self.df_SL['Mretwd'] * (self.df_SL['Size'] / self.df_SL['Size'].sum()) ).sum()
-        # self.R_SN_BM = (self.df_SN_BM['Mretwd'] * (self.df_SN_BM['Size'] / self.df_SN_BM['Size'].sum()) ).sum()
-        # self.R_SH = (self.df_SH['Mretwd'] * (self.df_SH['Size'] / self.df_SH['Size'].sum()) ).sum()
-        # self.R_BL = (self.df_BL['Mretwd'] * (self.df_BL['Size'] / self.df_BL['Size'].sum()) ).sum()
-        # self.R_BN_BM = (self.df_BN_BM['Mretwd'] * (self.df_BN_BM['Size'] / self.df_BN_BM['Size'].sum()) ).sum()
-        # self.R_BH = (self.df_BH['Mretwd'] * (self.df_BH['Size'] / self.df_BH['Size'].sum()) ).sum()
-
-        # self.R_SR = (self.df_SR['Mretwd'] * (self.df_SR['Size'] / self.df_SR['Size'].sum()) ).sum()
-        # self.R_SN_OP = (self.df_SN_OP['Mretwd'] * (self.df_SN_OP['Size'] / self.df_SN_OP['Size'].sum()) ).sum()
-        # self.R_SW = (self.df_SW['Mretwd'] * (self.df_SW['Size'] / self.df_SW['Size'].sum()) ).sum()
-        # self.R_BR = (self.df_BR['Mretwd'] * (self.df_BR['Size'] / self.df_BR['Size'].sum()) ).sum()
-        # self.R_BN_OP = (self.df_BN_OP['Mretwd'] * (self.df_BN_OP['Size'] / self.df_BN_OP['Size'].sum()) ).sum()
-        # self.R_BW = (self.df_BW['Mretwd'] * (self.df_BW['Size'] / self.df_BW['Size'].sum()) ).sum()
-
-        # self.R_SC = (self.df_SC['Mretwd'] * (self.df_SC['Size'] / self.df_SC['Size'].sum()) ).sum()
-        # self.R_SN_INV = (self.df_SN_INV['Mretwd'] * (self.df_SN_INV['Size'] / self.df_SN_INV['Size'].sum()) ).sum()
-        # self.R_SA = (self.df_SA['Mretwd'] * (self.df_SA['Size'] / self.df_SA['Size'].sum()) ).sum()
-        # self.R_BC = (self.df_BC['Mretwd'] * (self.df_BC['Size'] / self.df_BC['Size'].sum()) ).sum()
-        # self.R_BN_INV = (self.df_BN_INV['Mretwd'] * (self.df_BN_INV['Size'] / self.df_BN_INV['Size'].sum()) ).sum()
-        # self.R_BA = (self.df_BA['Mretwd'] * (self.df_BA['Size'] / self.df_BA['Size'].sum()) ).sum()
-
         # 计算SMB、HML、RMW、CMA
         self.SMB_BM = (self.R_SH + self.R_SN_BM +self.R_SL -self.R_BH - self.R_BN_BM - self.R_BL) / 3
         self.SMB_OP = (self.R_SR + self.R_SN_OP +self.R_SW -self.R_BR - self.R_BN_OP - self.R_BW) / 3

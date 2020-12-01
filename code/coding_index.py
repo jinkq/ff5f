@@ -3,10 +3,10 @@ import pandas as pd
 def get_metrics():
     #读取财务数据，选取6月份的市场回报数据和每年1.1的财务数据
     df0=pd.read_excel('../data/result.xlsx')
-    df14_6=pd.read_excel('../data/市场回报数据/2014-06.xlsx')
-    df15_6=pd.read_excel('../data/市场回报数据/2015-06.xlsx')
-    df16_6=pd.read_excel('../data/市场回报数据/2016-06.xlsx')
-    df17_6=pd.read_excel('../data/市场回报数据/2017-06.xlsx')
+    df14_6=pd.read_excel('../data/stock/2014-06.xlsx')
+    df15_6=pd.read_excel('../data/stock/2015-06.xlsx')
+    df16_6=pd.read_excel('../data/stock/2016-06.xlsx')
+    df17_6=pd.read_excel('../data/stock/2017-06.xlsx')
     #print(df.iloc[0,2])
 
     #把日期修改为“年”
@@ -29,7 +29,7 @@ def get_metrics():
         #print(finance.iloc[i,1])
         df17_6.loc[i,0]=int(df17_6.iloc[i,0])
         df17_6.loc[i,'Trdmnt']='2017'
-
+    
     #print(df14_6)
     df0.rename(columns={'Accper':'Trdmnt'},inplace=True) # 重命名列名
     # print(df0)
@@ -49,7 +49,7 @@ def get_metrics():
     result15 = pd.merge(finance,df15_6, on=['Stkcd', 'Trdmnt'])
     result16 = pd.merge(finance,df16_6, on=['Stkcd', 'Trdmnt'])
     result17 = pd.merge(finance,df17_6, on=['Stkcd', 'Trdmnt'])
-
+    
     result1 = result14.append(result15)
     result2=result1.append(result16)
     result3=result2.append(result17)
@@ -66,11 +66,11 @@ def get_metrics():
 
     #4 投资风格
     result4['INV']=(result4['total_assets']-result4['total_assets'].shift())/result4['total_assets'].shift()
-
+    print(result4)
     #将2014年的INV修改为0，因为他没有办法和前一年对比，默认为0
     for i in range(result4.shape[0]):
         if str(result4.iloc[i,1])=='2014':
-            result4.iloc[i,15]=0
+            result4.iloc[i,-1]=0
 
     df = result4[['Stkcd','Size','BM','OP','INV','Trdmnt']]
 

@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression 
 from sklearn.metrics import mean_squared_error # MSE均方误差
-from sklearn.metrics import mean_absolute_error # MAEX
+from sklearn.metrics import mean_absolute_error # MAE
 from sklearn.metrics import r2_score # R^2决定系数
 from sklearn import preprocessing
 
@@ -29,7 +29,7 @@ def regression_all(df):
     df = scaler.fit_transform(np.array(df.iloc[:, 3:]))
     # df = np.array(df.iloc[:, 3:])
 
-    print(df)
+    # print(df)
     train_df = df[:train_size, :]
     test_df = df[train_size:, :]
     # train_df = scaler.fit_transform(np.array(train_df.iloc[:, 3:]))
@@ -52,11 +52,17 @@ def regression_all(df):
     # Y_test = scaler.inverse_transform(Y_test)
     # Y_pred = scaler.inverse_transform(Y_pred)
 
-    # # 回归评价
-    print('train_R^2: ', r2_score(Y_train, Y_pred_train))
-    print('R^2: ', r2_score(Y_test, Y_pred))
-    print('MSE: ', mean_absolute_error(Y_test, Y_pred))
-    print('MAEX: ', mean_squared_error(Y_test, Y_pred))
+    # 回归方程系数及截距
+    print('系数： ', lr_model.coef_)
+    print('截距： ', lr_model.intercept_)
+
+    # 回归评价
+    print('2014-2016年回归数据的R^2: ', r2_score(Y_train, Y_pred_train))
+    print('2017年预测数据的R^2: ', r2_score(Y_test, Y_pred))
+    print('2014-2016年回归数据的MSE: ', mean_squared_error(Y_train, Y_pred_train))
+    print('2017年预测数据的MSE: ', mean_squared_error(Y_test, Y_pred))
+    print('2014-2016年回归数据的MAE: ', mean_absolute_error(Y_train, Y_pred_train))
+    print('2017年预测数据的MAE: ', mean_absolute_error(Y_test, Y_pred))
 
     plot(Y_test, Y_pred)
 
@@ -70,7 +76,7 @@ def plot(Y_test, Y_pred):
     ax.plot(Y_pred, color='blue', label='Y_pred')
     plt.title('Y_test and Y_pred')
     plt.legend(loc=0,ncol=1)
-    plt.savefig('../result/all.png')
+    plt.savefig('../result/regression/all.png')
     plt.show()
 
 def plot_seperatly(Trdmnt_train, Trdmnt_test, Y_train, Y_pred_train, Y_test, Y_pred, portfolio):
@@ -97,7 +103,7 @@ def plot_seperatly(Trdmnt_train, Trdmnt_test, Y_train, Y_pred_train, Y_test, Y_p
     ax.set_xticks(xticks)
     ax.set_xticklabels(xlabels, rotation=40)
 
-    plt.savefig('../result/' + portfolio + '.png')
+    plt.savefig('../result/regression/' + portfolio + '.png')
     plt.show()
 
 def regression_one_portfolio(df, portfolio):
@@ -142,11 +148,17 @@ def regression_one_portfolio(df, portfolio):
     Y_pred_train = lr_model.predict(X_train)
     Y_pred = lr_model.predict(X_test)
 
-    # # 回归评价
+    # 回归方程系数及截距
+    print('系数： ', lr_model.coef_)
+    print('截距： ', lr_model.intercept_)
+
+    # 回归评价
     print('2014-2016年回归数据的R^2: ', r2_score(Y_train, Y_pred_train))
     print('2017年预测数据的R^2: ', r2_score(Y_test, Y_pred))
-    print('MSE: ', mean_absolute_error(Y_test, Y_pred))
-    print('MAEX: ', mean_squared_error(Y_test, Y_pred))
+    print('2014-2016年回归数据的MSE: ', mean_squared_error(Y_train, Y_pred_train))
+    print('2017年预测数据的MSE: ', mean_squared_error(Y_test, Y_pred))
+    print('2014-2016年回归数据的MAE: ', mean_absolute_error(Y_train, Y_pred_train))
+    print('2017年预测数据的MAE: ', mean_absolute_error(Y_test, Y_pred))
     plot_seperatly(Trdmnt_train, Trdmnt_test, Y_train, Y_pred_train, Y_test, Y_pred, portfolio)
 
 def regression(df):
@@ -159,6 +171,7 @@ def regression(df):
     portfolio_list = ['SL', 'SN_BM', 'SH', 'BL', 'BN_BM', 'BH', 'SR', 'SN_OP', 'SW', 'BR',
     'BN_OP', 'BW', 'SC', 'SN_INV', 'SA', 'BC', 'BN_INV', 'BA']
 
+    param = pd.DataFrame() # 系数和截距
     for portfolio in portfolio_list:
         regression_one_portfolio(origin_df, portfolio)
 
