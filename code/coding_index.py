@@ -3,10 +3,10 @@ import pandas as pd
 def get_metrics():
     #读取财务数据，选取6月份的市场回报数据和每年1.1的财务数据
     df0=pd.read_excel('../data/result.xlsx')
-    df14_6=pd.read_excel('../data/stock/2014-06.xlsx')
-    df15_6=pd.read_excel('../data/stock/2015-06.xlsx')
-    df16_6=pd.read_excel('../data/stock/2016-06.xlsx')
-    df17_6=pd.read_excel('../data/stock/2017-06.xlsx')
+    df14_6=pd.read_excel('../data/stock/2014-06.xlsx').dropna()
+    df15_6=pd.read_excel('../data/stock/2015-06.xlsx').dropna()
+    df16_6=pd.read_excel('../data/stock/2016-06.xlsx').dropna()
+    df17_6=pd.read_excel('../data/stock/2017-06.xlsx').dropna()
     #print(df.iloc[0,2])
 
     #把日期修改为“年”
